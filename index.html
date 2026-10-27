@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BOTfacts — facts about a token on BOT Chain</title>
+<meta name="description" content="Paste a token address on BOT Chain and see what can be checked: decimals, supply, proxy, owner, verified source, holder concentration and look-alikes, each with its source. Freeze the answers into an on-chain snapshot so later changes show. Facts only: no scores, no verdicts." />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#F6F4EE" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#111315" media="(prefers-color-scheme: dark)" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Crect%20width%3D%22256%22%20height%3D%22256%22%20rx%3D%2246%22%20fill%3D%22%2315171A%22%2F%3E%3Cg%20transform%3D%22translate(128%20128)%20scale(0.9)%20translate(-128%20-128)%22%3E%3Cpath%20d%3D%22M16%2088V16H88%22%20fill%3D%22none%22%20stroke%3D%22%23F6F4EE%22%20stroke-width%3D%2230%22%20stroke-linejoin%3D%22miter%22%20stroke-linecap%3D%22butt%22%2F%3E%3Cpath%20d%3D%22M168%2016H240V88%22%20fill%3D%22none%22%20stroke%3D%22%23F6F4EE%22%20stroke-width%3D%2230%22%20stroke-linejoin%3D%22miter%22%20stroke-linecap%3D%22butt%22%2F%3E%3Cpath%20d%3D%22M16%20168V240H88%22%20fill%3D%22none%22%20stroke%3D%22%23F6F4EE%22%20stroke-width%3D%2230%22%20stroke-linejoin%3D%22miter%22%20stroke-linecap%3D%22butt%22%2F%3E%3Cpath%20d%3D%22M168%20240H240V168%22%20fill%3D%22none%22%20stroke%3D%22%23F6F4EE%22%20stroke-width%3D%2230%22%20stroke-linejoin%3D%22miter%22%20stroke-linecap%3D%22butt%22%2F%3E%3Ccircle%20cx%3D%22128%22%20cy%3D%22128%22%20r%3D%2252%22%20fill%3D%22none%22%20stroke%3D%22%23F6F4EE%22%20stroke-width%3D%2226%22%2F%3E%3Crect%20x%3D%2296%22%20y%3D%22104%22%20width%3D%2264%22%20height%3D%2220%22%20rx%3D%224%22%20fill%3D%22%234FC3C5%22%2F%3E%3Crect%20x%3D%2296%22%20y%3D%22134%22%20width%3D%2244%22%20height%3D%2220%22%20rx%3D%224%22%20fill%3D%22%234FC3C5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" />
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADM0lEQVR4nO2XXUhTYRjHn+OkInJ1kRU6cRRhaTd9SHbRlZQkRZBLDKGPi6S8cBM0ow/mMqEPIyelYR9KZJRu0RdGRFdBGVZStJUX4Yaz6xwuIpzr/2wed+bOOW54wht/sLP/M7bz/vc+7/NwHoEmMRqNy37/+WuGPBwKkZH+A4JAHiLqXLxogd3j8fyCJgEvMplM28eDE73BYHAJQkVGRn7SsG8ESpksQyZlZmZAKaPT6cZSdSnFDofjjWDEP9+4afNw192bqoszzS2tdNXeCqVMtbmSLFWVUOqUHzw6NvDpY5awYlVGfcHWfOuDrg58rI6WBsrKj1Df+34bGxiCAeMcGfAI6SszQtsK8klqIHvNBly1x/vjK64R2MC7vn6aNzArAzg7uBLnEteZ0cRA0Y5CMlcdp7zcdYiiuNzfyd7SRi9fvUYkz6wM6PV6arrYQEU7CxEp0+N8TOfOXyK/348oFkUD3L1MJXvxcQS5Umtvs8cs7kNX9E12RQN+b5B0PzZRc+IMVCxcoiIO55NwVw0bQKwKb3v7DTtUBLl+wDeX1n/FMbNqOkQSMtD7zDGVc2tXN30IpUDFs0WYIFt5KVTkTBTvMUGpk5ABMXe87WXXblFW6X5E8Qx391DvqWrSp6Uhkj9L05nRgPSAcrlVNDaRPi8PUTx+l4vaT9dMlad40NRI2sAhSx0tTF+OKErA46XxQACK6OH9Dm0NMGIK+NQeuH47LgUuaz2N4t8zXwbe0lKULKNJCpgXz52Uuz4Hiuik8yl5V6+FivK5tpYCQ56YSnB/G6Rdu0ug1EnIwPQy5BLkUpTCC7MBkaTKkBtRyb5oI5p+c+bK5UYySb4zik7ndg9CEeXm5kxtO3On8x7ZGi5AxcImRZyPJI1IetAYudxxK7aerYsxIQcvzjuUVCtOxIAIp8OCrRbPhAjnvBkLq227Jgak8O8YvlEiaG4gWeYNyBrAY7kHrTNbakAJLk8+4WpwL5CWmxJsAK3dywbqYcA6RwZscz+aQYeH0+BECMPpuKoJny+x4dRgiD6eyaHTpY7pUoTIcIo4jBE7gfHcAsnjeTbeNUcQyIs3Hs+bxfH8H7003N0Gg7dSAAAAAElFTkSuQmCC" />
+<style>
+  :root { --paper: #F6F4EE; --card: #FFFFFF; --ink: #15171A; --muted: #5B6068; --rule: #D8D4C8; --accent: #0B6E70; --mark: #EEEADC; --on-accent: #FFFFFF; }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper: #111315; --card: #181B1E; --ink: #E8E6E0; --muted: #9AA0A8; --rule: #2B3035; --accent: #4FC3C5; --mark: #23282C; --on-accent: #0B1214; }
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 28px 16px 56px; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .mono, code, td.value, .addr { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+
+  header .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  h1.logo { margin: 0; font-size: 28px; line-height: 1; }
+  h1.logo .wordmark { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-weight: 700; letter-spacing: -0.02em; }
+  .logo-svg { display: block; width: min(300px, 70vw); height: auto; }
+  .logo-svg .s-ink { stroke: var(--ink); } .logo-svg .f-ink { fill: var(--ink); } .logo-svg .f-acc { fill: var(--accent); }
+  .tag { margin: 10px 0 0; font-size: 17px; }
+  .built { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+
+  button { font: inherit; cursor: pointer; border-radius: 6px; border: 1px solid var(--rule); background: var(--card); color: var(--ink); padding: 8px 14px; }
+  button:hover:not(:disabled) { border-color: var(--ink); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+  #connectBtn.connected { font-family: ui-monospace, Menlo, monospace; font-size: 14px; }
+
+  form#checkForm { margin-top: 24px; }
+  label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; min-width: 0; font: 14px ui-monospace, "SF Mono", Menlo, Consolas, monospace; padding: 11px 12px; border-radius: 6px; border: 1px solid var(--rule); background: var(--card); color: var(--ink); }
+  input[type=text]:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+
+  .notice { min-height: 22px; margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+  .notice.err { color: var(--ink); font-weight: 600; }
+  #switchBtn { margin-top: 6px; }
+
+  h2 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 30px 0 8px; font-weight: 600; }
+  .asof { margin-top: 22px; font-size: 14px; color: var(--muted); }
+  table.facts { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 6px; }
+  table.facts th, table.facts td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+  table.facts tr:last-child th, table.facts tr:last-child td { border-bottom: 0; }
+  table.facts thead th { font-size: 12px; color: var(--muted); font-weight: 600; background: var(--mark); }
+  table.facts tbody th { font-weight: 600; width: 19%; }
+  td.value { font-size: 13px; word-break: break-all; width: 41%; }
+  td.value .line { margin: 0 0 4px; } td.value .line:last-child { margin: 0; }
+  td.src { font-size: 12.5px; color: var(--muted); width: 25%; }
+  td.when { font-size: 12.5px; color: var(--muted); width: 15%; }
+  .unavail { color: var(--muted); font-style: italic; font-family: system-ui, sans-serif; }
+  .small { font-size: 12.5px; color: var(--muted); }
+  @media (max-width: 720px) {
+    table.facts thead { display: none; }
+    table.facts, table.facts tbody, table.facts tr, table.facts th, table.facts td { display: block; width: 100%; }
+    table.facts tr { border-bottom: 1px solid var(--rule); padding: 6px 0; }
+    table.facts th, table.facts td { border: 0; padding: 4px 12px; width: 100% !important; }
+  }
+
+  .snap { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; margin-bottom: 10px; }
+  .snap summary { cursor: pointer; padding: 11px 14px; font-size: 14px; }
+  .snap .inner { padding: 0 14px 14px; }
+  .snap h3 { font-size: 13px; margin: 14px 0 6px; }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.cmp th, table.cmp td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; word-break: break-all; }
+  table.cmp thead th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  td.differs { background: var(--mark); font-weight: 600; }
+  .actions { margin: 10px 0; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+  .howto { margin-top: 36px; padding: 14px 16px; background: var(--card); border: 1px solid var(--rule); border-radius: 6px; font-size: 14px; }
+  .howto h2 { margin-top: 0; } .howto ul { margin: 6px 0 0; padding-left: 20px; } .howto li { margin-bottom: 6px; }
+  footer { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--muted); }
+  footer .links { margin: 0 0 8px; } footer .fine { margin: 0; font-size: 13px; }
+  .demo { background: var(--card); border-bottom: 1px dashed var(--accent); color: var(--accent); font-size: 13px; text-align: center; padding: 8px 12px; }
+
+  dialog { background: var(--card); color: var(--ink); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; width: min(360px, 92vw); }
+  dialog::backdrop { background: rgba(0,0,0,.5); }
+  dialog h2 { margin: 0 0 12px; font-size: 16px; text-transform: none; letter-spacing: 0; color: var(--ink); }
+  #walletList { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 8px; }
+  #walletList button { width: 100%; display: flex; align-items: center; gap: 10px; text-align: left; padding: 10px 12px; }
+</style>
+</head>
+<body>
+<div id="demoBanner" class="demo" hidden>Preview: every answer on this page is demo data, and nothing here touches a real chain.</div>
+<div class="wrap">
+  <header>
+    <div class="top">
+      <h1 class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" class="logo-svg" role="img" aria-label="BOTfacts"><g transform="translate(20 22) scale(1)"><path d="M26 78V26H78" fill="none" class="s-ink" stroke-width="14" stroke-linejoin="miter" stroke-linecap="butt"/><path d="M178 26H230V78" fill="none" class="s-ink" stroke-width="14" stroke-linejoin="miter" stroke-linecap="butt"/><path d="M26 178V230H78" fill="none" class="s-ink" stroke-width="14" stroke-linejoin="miter" stroke-linecap="butt"/><path d="M178 230H230V178" fill="none" class="s-ink" stroke-width="14" stroke-linejoin="miter" stroke-linecap="butt"/><circle cx="128" cy="128" r="56" fill="none" class="s-ink" stroke-width="12"/><rect x="102" y="104" width="52" height="10" rx="2" class="f-acc"/><rect x="102" y="123" width="36" height="10" rx="2" class="f-acc"/><rect x="102" y="142" width="44" height="10" rx="2" class="f-acc"/></g><g class="f-ink"><path d="M311.24 108.12L340.64 108.12Q353 108.12 359.54 114.12Q366.08 120.12 366.08 130.44Q366.08 137.64 362.54 141.9Q359 146.16 352.4 148.08L352.4 148.8Q360.2 150.72 364.46 155.52Q368.72 160.32 368.72 168.84Q368.72 179.4 362.06 185.64Q355.4 191.88 343.4 191.88L311.24 191.88ZM337.88 179.28Q344.36 179.28 347.36 177.12Q350.36 174.96 350.36 169.2L350.36 165.72Q350.36 159.96 347.36 157.8Q344.36 155.64 337.88 155.64L328.76 155.64L328.76 179.28ZM335.6 143.64Q341.96 143.64 344.84 141.54Q347.72 139.44 347.72 133.92L347.72 130.32Q347.72 124.8 344.84 122.76Q341.96 120.72 335.6 120.72L328.76 120.72L328.76 143.64Z"/><path d="M410 193.32Q393.2 193.32 385.22 181.92Q377.24 170.52 377.24 150Q377.24 129.48 385.22 118.08Q393.2 106.68 410 106.68Q426.8 106.68 434.78 118.08Q442.76 129.48 442.76 150Q442.76 170.52 434.78 181.92Q426.8 193.32 410 193.32ZM410 178.8Q417.68 178.8 420.62 173.1Q423.56 167.4 423.56 157.2L423.56 142.68Q423.56 132.6 420.62 126.9Q417.68 121.2 410 121.2Q402.32 121.2 399.38 126.9Q396.44 132.6 396.44 142.68L396.44 157.32Q396.44 167.4 399.38 173.1Q402.32 178.8 410 178.8Z"/><path d="M491 122.88L491 191.88L473 191.88L473 122.88L448.88 122.88L448.88 108.12L515.12 108.12L515.12 122.88Z"/></g><g class="f-ink"><path d="M527.96 183.72L548.84 183.72L548.84 138.12L526.76 138.12L526.76 129.96L548.84 129.96L548.84 117.24Q548.84 111 552.14 107.04Q555.44 103.08 562.52 103.08L583.28 103.08L583.28 111.24L558.44 111.24L558.44 129.96L583.28 129.96L583.28 138.12L558.44 138.12L558.44 183.72L580.52 183.72L580.52 191.88L527.96 191.88Z"/><path d="M649.4 191.88Q643.76 191.88 641.36 189Q638.96 186.12 638.36 181.8L637.76 181.8Q635.72 187.2 631.22 190.26Q626.72 193.32 619.16 193.32Q609.44 193.32 603.68 188.28Q597.92 183.24 597.92 174.48Q597.92 165.84 604.22 161.16Q610.52 156.48 624.56 156.48L637.76 156.48L637.76 150.36Q637.76 143.52 633.92 140.1Q630.08 136.68 623 136.68Q616.76 136.68 612.8 139.14Q608.84 141.6 606.44 145.8L599.96 141Q601.16 138.6 603.2 136.32Q605.24 134.04 608.24 132.3Q611.24 130.56 615.08 129.54Q618.92 128.52 623.6 128.52Q634.52 128.52 640.94 134.04Q647.36 139.56 647.36 149.4L647.36 183.48L656 183.48L656 191.88ZM620.84 185.28Q624.56 185.28 627.62 184.38Q630.68 183.48 632.96 181.98Q635.24 180.48 636.5 178.38Q637.76 176.28 637.76 173.88L637.76 163.68L624.56 163.68Q615.92 163.68 611.96 166.08Q608 168.48 608 173.04L608 175.56Q608 180.36 611.42 182.82Q614.84 185.28 620.84 185.28Z"/><path d="M700.16 193.32Q693.44 193.32 688.22 190.98Q683 188.64 679.4 184.44Q675.8 180.24 673.94 174.24Q672.08 168.24 672.08 160.92Q672.08 153.6 674 147.6Q675.92 141.6 679.52 137.34Q683.12 133.08 688.28 130.8Q693.44 128.52 700.04 128.52Q709.04 128.52 714.68 132.48Q720.32 136.44 722.96 142.8L715.28 146.88Q713.6 142.08 709.7 139.44Q705.8 136.8 700.04 136.8Q695.84 136.8 692.54 138.18Q689.24 139.56 686.96 142.08Q684.68 144.6 683.54 148.08Q682.4 151.56 682.4 155.64L682.4 166.2Q682.4 170.28 683.54 173.76Q684.68 177.24 686.96 179.76Q689.24 182.28 692.6 183.66Q695.96 185.04 700.28 185.04Q706.52 185.04 710.6 182.16Q714.68 179.28 717.08 174.24L723.92 178.92Q721.16 185.16 715.34 189.24Q709.52 193.32 700.16 193.32Z"/><path d="M773 191.88Q765.92 191.88 762.62 187.92Q759.32 183.96 759.32 177.72L759.32 138.12L738.68 138.12L738.68 129.96L754.04 129.96Q757.16 129.96 758.42 128.7Q759.68 127.44 759.68 124.32L759.68 108.12L768.92 108.12L768.92 129.96L797.12 129.96L797.12 138.12L768.92 138.12L768.92 183.72L797.12 183.72L797.12 191.88Z"/><path d="M842.72 193.32Q833 193.32 825.98 190.02Q818.96 186.72 814.04 181.2L820.52 175.56Q824.96 180.24 830.24 182.76Q835.52 185.28 842.96 185.28Q850.16 185.28 854.78 182.7Q859.4 180.12 859.4 174.6Q859.4 172.2 858.5 170.58Q857.6 168.96 856.04 168Q854.48 167.04 852.56 166.5Q850.64 165.96 848.48 165.6L838.76 164.16Q835.52 163.68 831.74 162.84Q827.96 162 824.84 160.14Q821.72 158.28 819.62 155.16Q817.52 152.04 817.52 147Q817.52 142.32 819.38 138.9Q821.24 135.48 824.6 133.14Q827.96 130.8 832.52 129.66Q837.08 128.52 842.48 128.52Q850.88 128.52 857.06 131.16Q863.24 133.8 867.68 138.48L861.44 144.36Q860.36 143.04 858.74 141.66Q857.12 140.28 854.78 139.14Q852.44 138 849.32 137.28Q846.2 136.56 842.12 136.56Q834.8 136.56 830.9 139.08Q827 141.6 827 146.4Q827 148.8 827.9 150.42Q828.8 152.04 830.36 153Q831.92 153.96 833.9 154.5Q835.88 155.04 837.92 155.4L847.64 156.84Q851 157.32 854.72 158.16Q858.44 159 861.56 160.86Q864.68 162.72 866.78 165.84Q868.88 168.96 868.88 174Q868.88 183.24 861.74 188.28Q854.6 193.32 842.72 193.32Z"/></g></svg></h1>
+      <button id="connectBtn" type="button">Connect wallet</button>
+    </div>
+    <p class="tag">Facts about a token on BOT Chain. No scores. No verdicts.</p>
+    <p class="built">Built on
+      <a href="https://www.botchain.ai" target="_blank" rel="noopener noreferrer">BOT Chain &#8599;</a> &middot;
+      <a href="https://scan.botchain.ai/" target="_blank" rel="noopener noreferrer">BOT Scan &#8599;</a>
+      &middot; A wallet is only needed to take a snapshot.</p>
+  </header>
+
+  <main>
+    <form id="checkForm" autocomplete="off">
+      <label for="tokenInput">Token contract address</label>
+      <div class="row">
+        <input id="tokenInput" type="text" spellcheck="false" placeholder="0x…" />
+        <button id="checkBtn" class="primary" type="submit">Check</button>
+      </div>
+    </form>
+    <p id="notice" class="notice" role="status" aria-live="polite"></p>
+    <button id="switchBtn" type="button" hidden>Switch to BOT Chain</button>
+
+    <section id="results" hidden>
+      <p class="asof" id="asOf"></p>
+
+      <h2>Read from the chain</h2>
+      <table class="facts" id="chainTable">
+        <thead><tr><th>Fact</th><th>Answer</th><th>Source</th><th>As of</th></tr></thead>
+        <tbody></tbody>
+      </table>
+
+      <h2>From BOT Scan (the explorer)</h2>
+      <table class="facts" id="explorerTable">
+        <thead><tr><th>Fact</th><th>Answer</th><th>Source</th><th>As of</th></tr></thead>
+        <tbody></tbody>
+      </table>
+
+      <h2>Snapshots</h2>
+      <div id="snapshotArea"></div>
+    </section>
+
+    <section class="howto">
+      <h2>How to read this page</h2>
+      <ul>
+        <li><strong>Facts only.</strong> Every row is a thing that was read or fetched, with where it came from and when. Nothing here is scored, rated, or judged, and nothing is colored good or bad.</li>
+        <li><strong>An answer that's missing isn't a clean bill of health.</strong> "No answer" means the token didn't respond to that question, not that the thing doesn't exist. "Unavailable" means this page couldn't get the data, and the row says why.</li>
+        <li><strong>The explorer can lag.</strong> The BOT Scan rows come from its index, not straight from the chain. The freshness row compares its latest block with the chain's.</li>
+        <li><strong>Snapshots hold two kinds of fact.</strong> Some are read by the snapshot contract itself, so they can't be faked. Others are reported by whoever took the snapshot, and the contract can't check them. They're shown separately, with the reporter's address.</li>
+        <li><strong>Look-alikes use two plain rules,</strong> stated in the row: the same symbol, or the same name once look-alike characters are normalized. A match is a fact about names, not a statement about the token.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p class="links">
+      <a href="https://www.botchain.ai" target="_blank" rel="noopener noreferrer">botchain.ai &#8599;</a> &middot;
+      <a href="https://scan.botchain.ai/" target="_blank" rel="noopener noreferrer">BOT Scan &#8599;</a>
+      <span id="footContract" hidden> &middot; <a id="footContractLink" href="#" target="_blank" rel="noopener noreferrer">Snapshot contract &#8599;</a></span>
+    </p>
+    <p class="fine">This tool reports facts and takes no position on any token. Nothing here is financial advice. The snapshot contract has no owner, no fee, and no way to change its rules, and it is unaudited.</p>
+  </footer>
+</div>
+
+<dialog id="walletDialog" aria-labelledby="walletTitle">
+  <h2 id="walletTitle">Choose a wallet</h2>
+  <ul id="walletList"></ul>
+  <form method="dialog" style="display:block;margin:0"><button type="submit">Cancel</button></form>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
+<script>
+(() => {
+"use strict";
+
+/* ====================== CONFIG: edit these ====================== */
+const DEMO = false;                                   // only true in the preview copy
+const CONTRACT_ADDRESS = "0xA24256ff3F1d51091d397E1d8a01310807a7B104";   // the TokenSnapshots contract
+const NETWORK = "mainnet";                            // "mainnet" (BOT Chain, id 677) or "testnet" (id 968)
+const EXPLORER_API = "https://scan.botchain.ai";      // BOT Scan (Blockscout). Used for holders, verified source and look-alikes.
+/* ================================================================ */
+
+const NETWORKS = {
+  mainnet: { chainId: "0x2A5", chainName: "BOT Chain", nativeCurrency: { name: "BOT", symbol: "BOT", decimals: 18 },
+             rpcUrls: ["https://rpc.botchain.ai"], blockExplorerUrls: ["https://scan.botchain.ai/"] },
+  testnet: { chainId: "0x3C8", chainName: "BOT Chain Testnet", nativeCurrency: { name: "BOT", symbol: "BOT", decimals: 18 },
+             rpcUrls: ["https://rpc.bohr.life"], blockExplorerUrls: ["https://scan.bohr.life/"] },
+};
+const net = NETWORKS[NETWORK];
+const EXPLORER_BASE = net.blockExplorerUrls[0];            // e.g. https://scan.botchain.ai/
+const HAS_CONTRACT = DEMO || !CONTRACT_ADDRESS.startsWith("PASTE");
+const MAX_REPORTED_BYTES = 4096;
+const ZERO = "0x0000000000000000000000000000000000000000";
+
+const SNAP_ABI = [
+  "function snapshot(address token, string reported) returns (uint256)",
+  "function readFacts(address token) view returns (tuple(bytes32 codeHash, uint32 codeSize, bool hasDecimals, uint8 decimals, bool hasTotalSupply, uint256 totalSupply, uint8 ownerSource, address owner))",
+  "function tokenSnapshotCount(address token) view returns (uint256)",
+  "function tokenSnapshotIdAt(address token, uint256 index) view returns (uint256)",
+  "function getSnapshot(uint256 id) view returns (tuple(address token, address snapshotter, uint64 blockNumber, uint64 timestamp, tuple(bytes32 codeHash, uint32 codeSize, bool hasDecimals, uint8 decimals, bool hasTotalSupply, uint256 totalSupply, uint8 ownerSource, address owner) facts, bytes32 reportedHash))",
+  "event SnapshotTaken(uint256 indexed id, address indexed token, address indexed snapshotter, uint64 blockNumber, string reported)",
+];
+const SLOTS = {
+  impl1967: "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc",
+  admin1967: "0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103",
+  beacon1967: "0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50",
+  eip1822: "0xc5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7",
+};
+
+/* ---------- small helpers ---------- */
+const $ = (id) => document.getElementById(id);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const short = (a) => (a ? a.slice(0, 6) + "\u2026" + a.slice(-4) : "");
+const ADDR_RE = /^0x[a-fA-F0-9]{40}$/;
+const lower = (a) => (a ? String(a).toLowerCase() : a);
+const withTimeout = (p, ms, what) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error((what || "Request") + " timed out")), ms))]);
+function friendly(e) {
+  if (e && (e.code === 4001 || e.code === "ACTION_REJECTED")) return "Cancelled in your wallet.";
+  const msg = (e && (e.reason || e.shortMessage || (e.info && e.info.error && e.info.error.message) || e.message)) || "";
+  if (!msg || /missing revert data|CALL_EXCEPTION|execution reverted$/i.test(msg)) return "The network rejected this. Please try again.";
+  return msg;
+}
+const fmtTime = (ts) => (ts ? new Date(Number(ts) * 1000).toLocaleString() : "");
+const clip = (s, n) => (s && s.length > n ? s.slice(0, n) + "\u2026" : s);
+
+/* ---------- pure logic (exported to the test harness only) ---------- */
+// Characters that look like Latin letters, in BOTH cases (an imposter "B" is usually a capital Cyrillic "\u0412").
+// Deliberately small and explicit; no digit/leet-speak mapping.
+const HOMOGLYPHS = {
+  "\u0410": "a", "\u0430": "a", "\u0412": "b", "\u0415": "e", "\u0435": "e", "\u041A": "k", "\u043A": "k", "\u041C": "m", "\u043C": "m",
+  "\u041D": "h", "\u041E": "o", "\u043E": "o", "\u0420": "p", "\u0440": "p", "\u0421": "c", "\u0441": "c", "\u0422": "t", "\u0442": "t",
+  "\u0423": "y", "\u0443": "y", "\u0425": "x", "\u0445": "x", "\u0406": "i", "\u0456": "i", "\u0408": "j", "\u0458": "j", "\u0405": "s",
+  "\u0455": "s", "\u0501": "d", "\u04BB": "h", "\u0475": "v", "\u051B": "q", "\u051D": "w",
+  "\u0391": "a", "\u0392": "b", "\u0395": "e", "\u0396": "z", "\u0397": "h", "\u0399": "i", "\u039A": "k", "\u039C": "m", "\u039D": "n",
+  "\u039F": "o", "\u03A1": "p", "\u03A4": "t", "\u03A5": "y", "\u03A7": "x", "\u03BF": "o", "\u03BD": "v", "\u03C1": "p", "\u03B9": "i",
+  "\u0131": "i", "\u0261": "g", "\u1D00": "a", "\u1D04": "c", "\u1D07": "e",
+};
+function foldLookalikes(s) {
+  let out = "";
+  for (const ch of String(s || "").normalize("NFKC")) {
+    if (/[\u0300-\u036f\u200b-\u200f\u2060\ufeff]/.test(ch)) continue;      // combining marks and zero-width characters
+    out += HOMOGLYPHS[ch] || ch.toLowerCase();                                  // map first, so capitals are caught too
+  }
+  return out;
+}
+const nameKey = (s) => foldLookalikes(s).replace(/[^\p{L}\p{N}]/gu, "");
+const plainKey = (s) => String(s || "").normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
+/** Which look-alike rules does `cand` meet against `self`? Returns an array of rule names (empty = no match). */
+function lookalikeRules(self, cand) {
+  const rules = [];
+  const sSym = String(self.symbol || "").trim(), cSym = String(cand.symbol || "").trim();
+  const sName = String(self.name || "").trim(), cName = String(cand.name || "").trim();
+  if (sSym && cSym && sSym.normalize("NFKC").toLowerCase() === cSym.normalize("NFKC").toLowerCase()) rules.push("same symbol");
+  else if (sSym && cSym && nameKey(sSym) && nameKey(sSym) === nameKey(cSym)) rules.push("symbol matches after normalizing look-alike characters");
+  if (sName && cName && plainKey(sName) && plainKey(sName) === plainKey(cName)) rules.push("same name");
+  else if (sName && cName && nameKey(sName) && nameKey(sName) === nameKey(cName)) rules.push("name matches after normalizing look-alike characters");
+  return rules;
+}
+function findLookalikes(self, candidates) {
+  const seen = new Set(), out = [];
+  for (const c of candidates) {
+    const a = lower(c.address);
+    if (!a || a === lower(self.address) || seen.has(a)) continue;
+    const rules = lookalikeRules(self, c);
+    if (rules.length) { seen.add(a); out.push({ address: c.address, name: c.name || "", symbol: c.symbol || "", rules }); }
+  }
+  return out;
+}
+function parseHolders(json) {
+  if (!json || !Array.isArray(json.items)) return null;
+  const out = [];
+  for (const it of json.items) {
+    const addr = it && it.address && (it.address.hash || it.address.address_hash);
+    const val = it && it.value;
+    if (typeof addr !== "string" || !ADDR_RE.test(addr) || (typeof val !== "string" && typeof val !== "number") || !/^\d+$/.test(String(val))) continue;
+    out.push({ address: addr, value: BigInt(String(val)), isContract: !!(it.address && it.address.is_contract) });
+  }
+  return { holders: out, hasMore: !!json.next_page_params };
+}
+function concentration(holders, totalSupply) {
+  if (!totalSupply || totalSupply <= 0n || !holders.length) return null;
+  const sorted = [...holders].sort((a, b) => (a.value < b.value ? 1 : a.value > b.value ? -1 : 0));
+  const bps = (v) => Number((v * 10000n) / totalSupply);
+  const sum = (n) => sorted.slice(0, n).reduce((t, h) => t + h.value, 0n);
+  return {
+    count: sorted.length,
+    top1Bps: bps(sorted[0].value),
+    top5Bps: sorted.length >= 5 ? bps(sum(5)) : null,
+    top10Bps: sorted.length >= 10 ? bps(sum(10)) : null,
+    top: sorted.slice(0, 10).map((h) => ({ address: h.address, bps: bps(h.value), isContract: h.isContract })),
+  };
+}
+const pct = (bps) => (bps / 100).toFixed(2) + "%";
+function parseSearch(json) {
+  if (!json || !Array.isArray(json.items)) return null;
+  const out = [];
+  for (const it of json.items) {
+    if (!it || it.type !== "token") continue;
+    const addr = it.address_hash || it.address;
+    if (typeof addr !== "string" || !ADDR_RE.test(addr)) continue;
+    out.push({ address: addr, name: typeof it.name === "string" ? it.name : "", symbol: typeof it.symbol === "string" ? it.symbol : "" });
+  }
+  return out;
+}
+function parseVerified(json) {
+  if (!json || typeof json !== "object") return null;
+  const verified = typeof json.is_verified === "boolean" ? json.is_verified : (json.source_code || json.sourcify_repo_url ? true : null);
+  return { verified, partial: json.is_partially_verified === true, name: typeof json.name === "string" ? json.name : null,
+           compiler: typeof json.compiler_version === "string" ? json.compiler_version : null, license: typeof json.license_type === "string" ? json.license_type : null };
+}
+function decodeText(raw) {
+  // Only real, printable UTF-8 in a standard layout counts as text. Anything else is "not text", never a garbled or empty name.
+  const printable = (t) => (typeof t === "string" && !/[\u0000-\u001f\u007f\ufffd]/.test(t) ? t : null);
+  try {
+    const b = ethers.getBytes(raw), word = (i) => BigInt(ethers.hexlify(b.slice(i, i + 32)));
+    if (b.length === 32) { let end = 32; while (end > 0 && b[end - 1] === 0) end--; return end ? printable(new TextDecoder("utf-8", { fatal: true }).decode(b.slice(0, end))) : null; }
+    if (b.length < 64 || word(0) !== 32n) return null;                           // standard ABI string: offset 0x20, then length, then padded data
+    const len = word(32); if (len > 4096n) return null;
+    if (BigInt(b.length) !== 64n + ((len + 31n) / 32n) * 32n) return null;      // exactly the standard size, no trailing junk
+    return len === 0n ? "" : printable(new TextDecoder("utf-8", { fatal: true }).decode(b.slice(64, 64 + Number(len))));
+  } catch (e) { return null; }
+}
+const addrFromWord = (w) => (/^0x0{24}[0-9a-fA-F]{40}$/.test(w) && !/^0x0{64}$/.test(w) ? ethers.getAddress("0x" + w.slice(-40)) : null);
+const EIP1167 = /^0x363d3d373d3d3d363d73([0-9a-f]{40})5af43d82803e903d91602b57fd5bf3$/;
+
+/** The compact record that goes on-chain as the "reported" text. Keeps under the contract's byte cap. */
+function reportedObject(token, chain, ex) {
+  const o = { v: 1, app: "BOTfacts", token: lower(token), rpcBlock: chain.bn };
+  if (chain.name.status === "ok") o.name = clip(chain.name.value, 60);
+  if (chain.symbol.status === "ok") o.symbol = clip(chain.symbol.value, 30);
+  o.proxy = { impl1967: lower(chain.proxy.impl1967.value) || null, admin1967: lower(chain.proxy.admin1967.value) || null, beacon: lower(chain.proxy.beacon.value) || null,
+              eip1822: lower(chain.proxy.eip1822.value) || null, eip1167: lower(chain.proxy.eip1167.value) || null };
+  const e = {}, gaps = [];
+  [["impl1967", "EIP-1967 implementation slot"], ["admin1967", "EIP-1967 admin slot"], ["beacon", "EIP-1967 beacon slot"], ["eip1822", "EIP-1822 slot"]].forEach(([k, label]) => {
+    const r = chain.proxy[k]; if (r && r.error) gaps.push(label + ": " + clip(r.error, 80));
+  });
+  if (chain.name.status === "error") gaps.push("name: " + clip(chain.name.reason, 80));
+  if (chain.symbol.status === "error") gaps.push("symbol: " + clip(chain.symbol.reason, 80));
+  if (ex) {
+    if (ex.verified.status === "ok") e.verified = ex.verified.verified;
+    else gaps.push("verified: " + clip(ex.verified.reason, 80));
+    if (ex.holders.status === "ok") { e.holders = ex.holders.count; e.top1Bps = ex.holders.top1Bps; if (ex.holders.top5Bps != null) e.top5Bps = ex.holders.top5Bps; if (ex.holders.top10Bps != null) e.top10Bps = ex.holders.top10Bps; }
+    else gaps.push("holders: " + clip(ex.holders.reason, 80));
+    if (ex.lookalikes.status === "ok") e.lookalikes = ex.lookalikes.matches.slice(0, 8).map((m) => [lower(m.address), m.rules.length]);
+    else gaps.push("lookalikes: " + clip(ex.lookalikes.reason, 80));
+    if (ex.freshness.status === "ok") { e.block = ex.freshness.block; e.time = ex.freshness.time; }
+    else gaps.push("freshness: " + clip(ex.freshness.reason, 80));
+  } else gaps.push("explorer: not included");
+  o.explorer = e; if (gaps.length) o.gaps = gaps;
+  return o;
+}
+function reportedText(token, chain, ex) {
+  const o = reportedObject(token, chain, ex);
+  let t = JSON.stringify(o);
+  if (new TextEncoder().encode(t).length > MAX_REPORTED_BYTES && o.explorer.lookalikes) { o.explorer.lookalikes = o.explorer.lookalikes.slice(0, 2); t = JSON.stringify(o); }
+  if (new TextEncoder().encode(t).length > MAX_REPORTED_BYTES) { delete o.gaps; t = JSON.stringify(o); }
+  return t;
+}
+if (window.__BF_TEST__) window.__bf = { foldLookalikes, nameKey, lookalikeRules, findLookalikes, parseHolders, concentration, parseSearch, parseVerified, decodeText, addrFromWord, EIP1167, reportedObject, reportedText, pct, MAX_REPORTED_BYTES };
+
+/* ---------- wallet discovery (EIP-6963) ---------- */
+const wallets6963 = new Map();
+window.addEventListener("eip6963:announceProvider", (ev) => { const d = ev && ev.detail; if (d && d.info && d.info.uuid && d.provider) wallets6963.set(d.info.uuid, d); });
+window.dispatchEvent(new Event("eip6963:requestProvider"));
+function listWallets() {
+  const list = Array.from(wallets6963.values());
+  if (!list.length && window.ethereum) list.push({ info: { uuid: "injected", name: "Browser wallet", icon: "" }, provider: window.ethereum });
+  return list;
+}
+function pickWallet(list) {
+  return new Promise((resolve) => {
+    const dlg = $("walletDialog"), ul = $("walletList"); ul.innerHTML = ""; let done = false;
+    list.forEach((w) => {
+      const li = document.createElement("li"), b = document.createElement("button"); b.type = "button";
+      if (w.info.icon && /^data:image\//.test(w.info.icon)) { const img = new Image(); img.src = w.info.icon; img.alt = ""; img.width = 24; img.height = 24; b.appendChild(img); }
+      const span = document.createElement("span"); span.textContent = String(w.info.name || "Wallet").slice(0, 40); b.appendChild(span);
+      b.addEventListener("click", () => { done = true; dlg.close(); resolve(w); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    dlg.addEventListener("close", () => { if (!done) resolve(null); }, { once: true });
+    dlg.showModal();
+  });
+}
+
+/* ---------- data layer: one real, one simulated (preview). Same interface. ---------- */
+const real = (() => {
+  const KEY = "botfacts_wallet";
+  const subs = []; let raw = null, account = null, pubProvider = null;
+  const notify = () => subs.forEach((f) => f());
+  async function chainOk() { return !!raw && BigInt(await raw.request({ method: "eth_chainId" })) === BigInt(net.chainId); }
+  async function ensureNetwork() {
+    if (await chainOk()) return;
+    try { await raw.request({ method: "wallet_switchEthereumChain", params: [{ chainId: net.chainId }] }); }
+    catch (e) { const code = e && (e.code || (e.data && e.data.originalError && e.data.originalError.code)); if (code === 4902) await raw.request({ method: "wallet_addEthereumChain", params: [net] }); else throw e; }
+  }
+  function onAccounts(a) { account = a && a[0] ? a[0] : null; notify(); }
+  function bind(p) {
+    if (raw && raw.removeListener) { raw.removeListener("accountsChanged", onAccounts); raw.removeListener("chainChanged", notify); }
+    raw = p; if (raw.on) { raw.on("accountsChanged", onAccounts); raw.on("chainChanged", notify); }
+  }
+  async function provider() {
+    if (raw && account && (await chainOk())) return new ethers.BrowserProvider(raw);
+    if (!pubProvider) pubProvider = new ethers.JsonRpcProvider(net.rpcUrls[0], parseInt(net.chainId, 16), { staticNetwork: true, batchMaxCount: 1 });
+    return pubProvider;
+  }
+  async function tryCall(p, token, sig, bn) {
+    try {
+      const out = await withTimeout(p.call({ to: token, data: ethers.id(sig).slice(0, 10), blockTag: bn }), 12000, "RPC call");
+      if (out === "0x") return { status: "none", reason: "returned no data" };
+      return { status: "ok", raw: out };
+    } catch (e) {
+      const msg = String((e && (e.shortMessage || e.message)) || "");
+      if (e && (e.code === "CALL_EXCEPTION" || /revert/i.test(msg))) return { status: "none", reason: "the call reverted" };
+      if (/ran out of gas|out of gas/i.test(msg)) return { status: "none", reason: "the call ran out of gas" };
+      return { status: "error", reason: "the RPC call failed: " + clip(msg, 80) };   // we couldn't ask, which is different from the token not answering
+    }
+  }
+  // The snapshot contract accepts only a reply of exactly 32 bytes; the page applies the same rule so the two never disagree.
+  const asUint = (r) => (r.status === "ok" && ethers.getBytes(r.raw).length === 32 ? BigInt(r.raw) : null);
+  const badNumber = (r, what) => (r.status !== "ok" ? r.reason : ethers.getBytes(r.raw).length !== 32 ? "returned " + ethers.getBytes(r.raw).length + " bytes instead of one 32-byte value" : what);
+  async function codeSizeOf(p, a, bn) { try { const c = await withTimeout(p.getCode(a, bn), 12000, "RPC call"); return (c.length - 2) / 2; } catch (e) { return null; } }
+  async function slotAddr(p, token, slot, bn) {
+    let word;
+    try { word = await withTimeout(p.getStorage(token, slot, bn), 12000, "RPC call"); }
+    catch (e) { return { value: null, codeSize: null, error: "the RPC call failed: " + clip(String((e && (e.shortMessage || e.message)) || ""), 80) }; }   // never shown as "empty"
+    const a = addrFromWord(word);
+    return a ? { value: a, codeSize: await codeSizeOf(p, a, bn) } : { value: null, codeSize: null };
+  }
+  async function ownerInfo(p, token, sig, bn) {
+    const r = await tryCall(p, token, sig, bn);
+    if (r.status !== "ok") return { status: r.status, reason: r.reason };
+    const w = ethers.hexlify(ethers.getBytes(r.raw).slice(0, 32));
+    if (ethers.getBytes(r.raw).length !== 32 || !/^0x0{24}[0-9a-fA-F]{40}$/.test(w)) return { status: "none", reason: "returned something that isn't an address" };
+    const a = ethers.getAddress("0x" + w.slice(-40));
+    return { status: "ok", value: a, codeSize: a === ZERO ? 0 : await codeSizeOf(p, a, bn) };
+  }
+  return {
+    subscribe: (fn) => subs.push(fn),
+    address: () => (account ? ethers.getAddress(account) : null),
+    chainOk,
+    async switchNetwork() { await ensureNetwork(); },
+    async connect() {
+      const list = listWallets();
+      if (!list.length) throw new Error("No wallet detected. Install a browser wallet such as MetaMask, then refresh this page.");
+      const chosen = list.length === 1 ? list[0] : await pickWallet(list);
+      if (!chosen) return null;
+      const accounts = await chosen.provider.request({ method: "eth_requestAccounts" });
+      if (!accounts || !accounts.length) return null;
+      bind(chosen.provider); account = accounts[0];
+      try { localStorage.setItem(KEY, chosen.info.uuid); } catch (e) {}
+      try { await ensureNetwork(); } catch (e) { /* the page offers a Switch button */ }
+      return account;
+    },
+    async autoReconnect() {
+      let id = null; try { id = localStorage.getItem(KEY); } catch (e) {}
+      if (!id) return null;
+      await sleep(300);
+      const w = listWallets().find((x) => x.info.uuid === id); if (!w) return null;
+      const accounts = await w.provider.request({ method: "eth_accounts" }); if (!accounts || !accounts.length) return null;
+      bind(w.provider); account = accounts[0]; return account;
+    },
+    disconnect() { account = null; try { localStorage.removeItem(KEY); } catch (e) {} },
+
+    /** Everything that can be read straight from the chain, all at one pinned block. */
+    async chainFacts(token) {
+      const p = await provider();
+      const bn = await withTimeout(p.getBlockNumber(), 12000, "RPC call");
+      const blk = await withTimeout(p.getBlock(bn), 12000, "RPC call");
+      const code = await withTimeout(p.getCode(token, bn), 12000, "RPC call");
+      const base = { bn, ts: blk ? blk.timestamp : null };
+      if (code === "0x") return { ...base, noCode: true };
+      const text = async (sig) => { const r = await tryCall(p, token, sig, bn); if (r.status !== "ok") return { status: r.status, reason: r.reason }; const t = decodeText(r.raw); return t == null ? { status: "none", reason: "returned something that isn't readable text" } : t === "" ? { status: "none", reason: "returned an empty string" } : { status: "ok", value: t }; };
+      const [name, symbol, dec, sup, ownerFn, getOwnerFn, impl1967, admin1967, beacon, eip1822] = await Promise.all([
+        text("name()"), text("symbol()"), tryCall(p, token, "decimals()", bn), tryCall(p, token, "totalSupply()", bn),
+        ownerInfo(p, token, "owner()", bn), ownerInfo(p, token, "getOwner()", bn),
+        slotAddr(p, token, SLOTS.impl1967, bn), slotAddr(p, token, SLOTS.admin1967, bn), slotAddr(p, token, SLOTS.beacon1967, bn), slotAddr(p, token, SLOTS.eip1822, bn),
+      ]);
+      const d = asUint(dec), s = asUint(sup);
+      const m = EIP1167.exec(code.toLowerCase());
+      let m1167 = { value: null, codeSize: null };
+      if (m) { const a = ethers.getAddress("0x" + m[1]); m1167 = { value: a, codeSize: await codeSizeOf(p, a, bn) }; }
+      return { ...base, noCode: false,
+        code: { size: (code.length - 2) / 2, hash: ethers.keccak256(code) },
+        name, symbol,
+        decimals: d != null && d <= 255n ? { status: "ok", value: Number(d) } : { status: dec.status === "error" ? "error" : "none", reason: badNumber(dec, "returned a number that isn't a valid decimals value") },
+        totalSupply: s != null ? { status: "ok", value: s } : { status: sup.status === "error" ? "error" : "none", reason: badNumber(sup, "returned something that isn't a number") },
+        owner: { ownerFn, getOwnerFn },
+        proxy: { impl1967, admin1967, beacon, eip1822, eip1167: m1167 } };
+    },
+
+    /** Explorer facts. Each part succeeds or fails on its own, and says why. */
+    async explorerFacts(token, chain) {
+      const get = async (path) => {
+        const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 9000);
+        try {
+          const r = await fetch(EXPLORER_API + path, { signal: ctl.signal, headers: { accept: "application/json" } });
+          if (!r.ok) return { ok: false, status: r.status, reason: "BOT Scan returned HTTP " + r.status };
+          try { return { ok: true, json: await r.json() }; } catch (e) { return { ok: false, reason: "BOT Scan's reply wasn't readable JSON" }; }
+        } catch (e) {
+          return { ok: false, reason: e && e.name === "AbortError" ? "BOT Scan didn't answer within 9 seconds" : "Couldn't reach BOT Scan from your browser (blocked or offline)" };
+        } finally { clearTimeout(t); }
+      };
+      const out = { fetchedAt: Math.floor(Date.now() / 1000) };
+      const [sc, tk, hl, fr] = await Promise.all([
+        get("/api/v2/smart-contracts/" + token), get("/api/v2/tokens/" + token), get("/api/v2/tokens/" + token + "/holders"), get("/api/v2/main-page/blocks"),
+      ]);
+      // verified source
+      if (sc.ok) { const v = parseVerified(sc.json); out.verified = v ? { status: "ok", ...v } : { status: "unavailable", reason: "the reply didn't contain the expected fields" }; }
+      else if (sc.status === 404) out.verified = { status: "ok", verified: false, none: true };
+      else out.verified = { status: "unavailable", reason: sc.reason };
+      // token record
+      if (tk.ok && tk.json && typeof tk.json === "object") {
+        const j = tk.json; const hc = j.holders_count != null ? j.holders_count : j.holders;
+        out.tokenRecord = { status: "ok", type: j.type || null, name: j.name || null, symbol: j.symbol || null, holdersCount: hc != null && /^\d+$/.test(String(hc)) ? Number(hc) : null };
+      } else out.tokenRecord = { status: "unavailable", reason: tk.ok ? "the reply didn't contain the expected fields" : tk.reason };
+      // holders
+      if (hl.ok) {
+        const ph = parseHolders(hl.json);
+        if (!ph) out.holders = { status: "unavailable", reason: "the reply didn't contain the expected fields" };
+        else if (!chain.totalSupply || chain.totalSupply.status !== "ok" || chain.totalSupply.value === 0n) out.holders = { status: "unavailable", reason: "the token gave no usable total supply to measure against" };
+        else if (!ph.holders.length) out.holders = { status: "unavailable", reason: "the explorer listed no holders for this token" };
+        else { const c = concentration(ph.holders, chain.totalSupply.value); out.holders = { status: "ok", ...c, hasMore: ph.hasMore, count: out.tokenRecord.holdersCount != null ? out.tokenRecord.holdersCount : c.count, pageCount: c.count }; }
+      } else out.holders = { status: "unavailable", reason: hl.reason };
+      // freshness
+      if (fr.ok && Array.isArray(fr.json) && fr.json.length && fr.json[0] && Number.isFinite(Number(fr.json[0].height)) && fr.json[0].timestamp) {
+        out.freshness = { status: "ok", block: Number(fr.json[0].height), time: Math.floor(new Date(fr.json[0].timestamp).getTime() / 1000) };
+      } else out.freshness = { status: "unavailable", reason: fr.ok ? "the reply didn't contain the expected fields" : fr.reason };
+      // look-alikes: search by symbol and by name (first page of each), then apply the two stated rules
+      const queries = [];
+      if (chain.symbol.status === "ok" && chain.symbol.value.trim()) queries.push(chain.symbol.value.trim());
+      if (chain.name.status === "ok" && chain.name.value.trim() && !queries.includes(chain.name.value.trim())) queries.push(chain.name.value.trim());
+      if (!queries.length) out.lookalikes = { status: "unavailable", reason: "the token gave no name or symbol to compare" };
+      else {
+        const results = await Promise.all(queries.map((q) => get("/api/v2/search?q=" + encodeURIComponent(q))));
+        const parsed = results.map((r) => (r.ok ? parseSearch(r.json) : null));
+        if (parsed.every((x) => x === null)) out.lookalikes = { status: "unavailable", reason: results.find((r) => !r.ok) ? results.find((r) => !r.ok).reason : "the reply didn't contain the expected fields" };
+        else {
+          const cands = parsed.filter(Boolean).flat();
+          out.lookalikes = { status: "ok", queries, matches: findLookalikes({ address: token, name: chain.name.status === "ok" ? chain.name.value : "", symbol: chain.symbol.status === "ok" ? chain.symbol.value : "" }, cands) };
+        }
+      }
+      return out;
+    },
+
+    async previewFacts(token) { const c = new ethers.Contract(CONTRACT_ADDRESS, SNAP_ABI, await provider()); return normFacts(await c.readFacts(token)); },
+    async listSnapshots(token) {
+      const c = new ethers.Contract(CONTRACT_ADDRESS, SNAP_ABI, await provider());
+      const n = Number(await c.tokenSnapshotCount(token)); const take = Math.min(n, 10), out = [];
+      for (let i = n - 1; i >= n - take; i--) { const id = await c.tokenSnapshotIdAt(token, i); const s = await c.getSnapshot(id); out.push({ id: Number(id), snapshotter: s.snapshotter, blockNumber: Number(s.blockNumber), timestamp: Number(s.timestamp), facts: normFacts(s.facts), reportedHash: s.reportedHash }); }
+      return { total: n, items: out };
+    },
+    async getReported(snap) {
+      const p = await provider(); const iface = new ethers.Interface(SNAP_ABI);
+      const logs = await p.getLogs({ address: CONTRACT_ADDRESS, fromBlock: snap.blockNumber, toBlock: snap.blockNumber, topics: [iface.getEvent("SnapshotTaken").topicHash, ethers.zeroPadValue(ethers.toBeHex(snap.id), 32)] });
+      if (!logs.length) return null;
+      const text = iface.parseLog(logs[0]).args.reported;
+      return { text, hashOk: ethers.keccak256(ethers.toUtf8Bytes(text)) === snap.reportedHash };
+    },
+    async takeSnapshot(token, text) {
+      await ensureNetwork();
+      const signer = await new ethers.BrowserProvider(raw).getSigner(account);
+      const tx = await new ethers.Contract(CONTRACT_ADDRESS, SNAP_ABI, signer).snapshot(token, text);
+      await tx.wait();
+    },
+  };
+  function normFacts(f) {
+    return { codeHash: f.codeHash, codeSize: Number(f.codeSize), decimals: f.hasDecimals ? Number(f.decimals) : null, totalSupply: f.hasTotalSupply ? BigInt(f.totalSupply) : null,
+             ownerSource: Number(f.ownerSource), owner: Number(f.ownerSource) ? ethers.getAddress(f.owner) : null };
+  }
+})();
+
+const demo = (() => {
+  const ME = "0x7a3f9c2b1d4e5f60718293a4b5c6d7e8f9012345", OWNER = "0x5b1c0000000000000000000000000000000090aa";
+  let on = false; const taken = [];
+  const now = () => Math.floor(Date.now() / 1000);
+  const chain = (token) => ({
+    bn: 8940150, ts: now() - 5, noCode: false, code: { size: 2231, hash: "0x9f3c2b7a41d85e6c0a1b3d4e5f60718293a4b5c6d7e8f9012345a1b2c3d4e5f60" },
+    name: { status: "ok", value: "Demo Token" }, symbol: { status: "ok", value: "DEMO" },
+    decimals: { status: "ok", value: 18 }, totalSupply: { status: "ok", value: 1500000n * 10n ** 18n },
+    owner: { ownerFn: { status: "ok", value: OWNER, codeSize: 0 }, getOwnerFn: { status: "none", reason: "the call reverted" } },
+    proxy: { impl1967: { value: null, codeSize: null }, admin1967: { value: null, codeSize: null }, beacon: { value: null, codeSize: null }, eip1822: { value: null, codeSize: null }, eip1167: { value: null, codeSize: null } },
+  });
+  const baseFacts = () => ({ codeHash: "0x9f3c2b7a41d85e6c0a1b3d4e5f60718293a4b5c6d7e8f9012345a1b2c3d4e5f60", codeSize: 2231, decimals: 18, totalSupply: 1000000n * 10n ** 18n, ownerSource: 1, owner: "0x1111111111111111111111111111111111110001" });
+  const nowFacts = () => ({ ...baseFacts(), totalSupply: 1500000n * 10n ** 18n, owner: OWNER });
+  const seeded = () => [
+    { id: 3, snapshotter: ME, blockNumber: 8939900, timestamp: now() - 3600 * 5, facts: nowFacts(), reportedHash: "0xdemo2", reportedText: JSON.stringify({ v: 1, app: "BOTfacts", name: "Demo Token", symbol: "DEMO", proxy: { impl1967: null, admin1967: null, beacon: null, eip1822: null, eip1167: null }, explorer: { verified: true, holders: 412, top1Bps: 3820, top5Bps: 7100, top10Bps: 8455, lookalikes: [["0x00000000000000000000000000000000000d3a01", 1]] } }) },
+    { id: 1, snapshotter: "0xb0b0000000000000000000000000000000000b0b", blockNumber: 8900001, timestamp: now() - 86400 * 9, facts: baseFacts(), reportedHash: "0xdemo1", reportedText: JSON.stringify({ v: 1, app: "BOTfacts", name: "Demo Token", symbol: "DEMO", proxy: { impl1967: null, admin1967: null, beacon: null, eip1822: null, eip1167: null }, explorer: { verified: false, holders: 188, top1Bps: 5200, top5Bps: 8800, top10Bps: 9300, lookalikes: [] } }) },
+  ];
+  return {
+    subscribe() {}, address: () => (on ? ME : null), async chainOk() { return true; }, async switchNetwork() {}, async autoReconnect() { return null; },
+    async connect() { await sleep(250); on = true; return ME; }, disconnect() { on = false; },
+    async chainFacts(token) { await sleep(300); if (/^0x0{38}00$/i.test(token)) return { bn: 8940150, ts: now(), noCode: true }; return chain(token); },
+    async explorerFacts(token) {
+      await sleep(400);
+      return { fetchedAt: now(),
+        verified: { status: "ok", verified: true, partial: false, name: "DemoToken", compiler: "v0.8.24+commit.e11b9ed9", license: "MIT" },
+        tokenRecord: { status: "ok", type: "ERC-20", name: "Demo Token", symbol: "DEMO", holdersCount: 412 },
+        holders: { status: "ok", count: 412, pageCount: 50, hasMore: true, top1Bps: 3820, top5Bps: 7100, top10Bps: 8455,
+          top: [[3820, true], [1500, false], [1010, false], [470, false], [300, false], [220, false], [180, false], [130, false], [110, false], [80, false]].map(([b, c], i) => ({ address: "0x" + (i + 1).toString(16).padStart(40, "a"), bps: b, isContract: c })) },
+        freshness: { status: "unavailable", reason: "BOT Scan returned HTTP 404" },
+        lookalikes: { status: "ok", queries: ["DEMO", "Demo Token"], matches: [
+          { address: "0x00000000000000000000000000000000000d3a01", name: "Demo Token", symbol: "DEMO", rules: ["same symbol", "same name"] },
+          { address: "0x00000000000000000000000000000000000d3a02", name: "D\u0435mo Token", symbol: "DEMO", rules: ["same symbol", "name matches after normalizing look-alike characters"] } ] } };
+    },
+    async previewFacts() { await sleep(100); return nowFacts(); },
+    async listSnapshots() { await sleep(150); const all = [...taken, ...seeded()]; return { total: all.length, items: all.slice(0, 10) }; },
+    async getReported(s) { await sleep(100); return s.reportedText ? { text: s.reportedText, hashOk: true } : null; },
+    async takeSnapshot(token, text) { await sleep(700); taken.unshift({ id: 10 + taken.length, snapshotter: ME, blockNumber: 8940151, timestamp: now(), facts: nowFacts(), reportedHash: "0xdemonew", reportedText: text }); },
+  };
+})();
+const data = DEMO ? demo : real;
+
+/* ---------- rendering ---------- */
+const state = { address: null, chainOk: true, token: null, chain: null, explorer: null, runId: 0, busy: false };
+const node = (tag, props, ...kids) => { const el = document.createElement(tag); if (props) Object.entries(props).forEach(([k, v]) => { if (k === "class") el.className = v; else if (k === "text") el.textContent = v; else el.setAttribute(k, v); }); kids.flat().forEach((k) => k != null && el.append(k)); return el; };
+const checksummed = (a) => { try { return ethers.getAddress(a); } catch (e) { return a; } };
+const addrLink = (a) => { const c = checksummed(a); return node("a", { class: "addr", href: EXPLORER_BASE + "address/" + c, target: "_blank", rel: "noopener noreferrer", text: c }); };
+const line = (...kids) => node("div", { class: "line" }, ...kids);
+const unavailable = (reason) => node("span", { class: "unavail", text: "Unavailable: " + reason });
+const none = (reason) => node("span", { class: "unavail", text: "No answer (" + reason + ")" });
+function factRow(key, label, valueKids, source, asOf) {
+  return node("tr", { "data-fact": key }, node("th", { scope: "row", text: label }), node("td", { class: "value" }, valueKids), node("td", { class: "src", text: source }), node("td", { class: "when", text: asOf }));
+}
+function setNotice(text, kind) { const el = $("notice"); el.textContent = text || ""; el.className = "notice" + (kind ? " " + kind : ""); }
+
+function renderChainRows(c) {
+  const tb = $("chainTable").querySelector("tbody"); tb.innerHTML = "";
+  const when = "block " + c.bn;
+  const rpc = (what) => what + " \u00b7 BOT Chain RPC";
+  tb.append(factRow("code", "Contract code", line(c.code.size + " bytes", " \u00b7 hash ", node("span", { class: "addr", text: c.code.hash })), rpc("eth_getCode"), when));
+  const miss = (r) => (r.status === "error" ? unavailable(r.reason) : none(r.reason));
+  const textVal = (r) => (r.status === "ok" ? line(clip(r.value, 120)) : line(miss(r)));
+  tb.append(factRow("name", "Name", textVal(c.name), rpc("name()"), when));
+  tb.append(factRow("symbol", "Symbol", textVal(c.symbol), rpc("symbol()"), when));
+  tb.append(factRow("decimals", "Decimals", c.decimals.status === "ok" ? line(String(c.decimals.value)) : line(miss(c.decimals)), rpc("decimals()"), when));
+  let supplyKids;
+  if (c.totalSupply.status === "ok") {
+    supplyKids = [line(c.totalSupply.value.toString() + " (raw)")];
+    if (c.decimals.status === "ok") supplyKids.push(line(ethers.formatUnits(c.totalSupply.value, c.decimals.value) + " (using " + c.decimals.value + " decimals)"));
+  } else supplyKids = [line(miss(c.totalSupply))];
+  tb.append(factRow("supply", "Total supply", supplyKids, rpc("totalSupply()"), when));
+  const ownerLine = (fn, r) => {
+    if (r.status !== "ok") return line(fn + " \u2192 ", miss(r));
+    const kind = r.value === ZERO ? "the zero address" : r.codeSize == null ? "couldn't check whether it has code" : r.codeSize > 0 ? "a contract with " + r.codeSize + " bytes of code" : "an account with no contract code";
+    return line(fn + " \u2192 ", r.value === ZERO ? r.value : addrLink(r.value), " (" + kind + ")");
+  };
+  tb.append(factRow("owner", "Owner", [ownerLine("owner()", c.owner.ownerFn), ownerLine("getOwner()", c.owner.getOwnerFn)], rpc("owner(), getOwner()"), when));
+  const codeNote = (n) => (n == null ? "couldn't check for code" : n > 0 ? n + " bytes of code" : "no code at that address");
+  const slot = (key, label, r, slotHex) => tb.append(factRow(key, label, r.error ? line(unavailable(r.error)) : r.value ? line(addrLink(r.value), " (" + codeNote(r.codeSize) + ")") : line("empty (all zeros)"), "eth_getStorageAt \u00b7 slot " + slotHex.slice(0, 10) + "\u2026" + slotHex.slice(-4), when));
+  slot("proxy1967impl", "Proxy: EIP-1967 implementation slot", c.proxy.impl1967, SLOTS.impl1967);
+  slot("proxy1967admin", "Proxy: EIP-1967 admin slot", c.proxy.admin1967, SLOTS.admin1967);
+  slot("proxy1967beacon", "Proxy: EIP-1967 beacon slot", c.proxy.beacon, SLOTS.beacon1967);
+  slot("proxy1822", "Proxy: EIP-1822 slot", c.proxy.eip1822, SLOTS.eip1822);
+  const m = c.proxy.eip1167;
+  tb.append(factRow("proxy1167", "Proxy: EIP-1167 minimal proxy", m.value ? line("Code matches the EIP-1167 pattern, forwarding to ", addrLink(m.value), " (" + codeNote(m.codeSize) + ")") : line("Code doesn't match the EIP-1167 pattern"), "eth_getCode \u00b7 pattern match", when));
+}
+
+function renderExplorerRows(ex, c) {
+  const tb = $("explorerTable").querySelector("tbody"); tb.innerHTML = "";
+  const t = fmtTime(ex.fetchedAt); const when = "fetched " + t;
+  const src = (p) => "BOT Scan \u00b7 " + p;
+  // verified source
+  const v = ex.verified; let vk;
+  if (v.status !== "ok") vk = line(unavailable(v.reason));
+  else if (v.none) vk = line("No verified source on record (the explorer returned HTTP 404)");
+  else if (v.verified === true) vk = [line("Verified source on record" + (v.partial ? " (partial match)" : "")), v.name ? line("Contract name: " + v.name) : null, v.compiler ? line("Compiler: " + v.compiler) : null, v.license ? line("License: " + v.license) : null];
+  else if (v.verified === false) vk = line("The explorer reports no verified source");
+  else vk = line(none("the reply didn't say"));
+  tb.append(factRow("verified", "Verified source", vk, src("/api/v2/smart-contracts/{token}"), when));
+  // token record
+  const r = ex.tokenRecord;
+  tb.append(factRow("tokenRecord", "Explorer's token record", r.status === "ok" ? [line("Type: " + (r.type || "not given")), line("Name / symbol: " + (r.name || "not given") + " / " + (r.symbol || "not given")), line("Holders (explorer count): " + (r.holdersCount != null ? r.holdersCount : "not given"))] : line(unavailable(r.reason)), src("/api/v2/tokens/{token}"), when));
+  // holders
+  const h = ex.holders; let hk;
+  if (h.status !== "ok") hk = line(unavailable(h.reason));
+  else {
+    hk = [line("Top holder: " + pct(h.top1Bps) + " of total supply"), line(h.top5Bps != null ? "Top 5 holders: " + pct(h.top5Bps) : "Top 5 holders: fewer than 5 holders returned"), line(h.top10Bps != null ? "Top 10 holders: " + pct(h.top10Bps) : "Top 10 holders: fewer than 10 holders returned")];
+    h.top.forEach((x, i) => hk.push(line((i + 1) + ". ", addrLink(x.address), " \u2014 " + pct(x.bps) + (x.isContract ? " (contract)" : ""))));
+    hk.push(line(node("span", { class: "small", text: "Shares use the chain's total supply as the denominator and the explorer's balances for the top " + h.pageCount + " holders it returned" + (h.hasMore ? " (it has more)." : ".") })));
+  }
+  tb.append(factRow("holders", "Holder concentration", hk, src("/api/v2/tokens/{token}/holders"), when));
+  // look-alikes
+  const l = ex.lookalikes; let lk;
+  if (l.status !== "ok") lk = line(unavailable(l.reason));
+  else {
+    lk = [line("Rules: the same symbol, or the same name after look-alike characters are normalized. Searched for: " + l.queries.map((q) => "\u201c" + q + "\u201d").join(", ") + " (first page of results each).")];
+    if (!l.matches.length) lk.push(line("No other token in those results matched either rule."));
+    else l.matches.slice(0, 20).forEach((m) => lk.push(line(addrLink(m.address), " \u2014 " + (m.name || "no name") + " / " + (m.symbol || "no symbol") + " \u2014 " + m.rules.join("; "))));
+  }
+  tb.append(factRow("lookalikes", "Look-alikes", lk, src("/api/v2/search?q={symbol or name}"), when));
+  // freshness
+  const f = ex.freshness; let fk;
+  if (f.status !== "ok") fk = line(unavailable(f.reason));
+  else {
+    const behind = c.bn - f.block;
+    fk = [line("Explorer's latest block: " + f.block + " (" + fmtTime(f.time) + ")"), line("Chain head per the RPC: " + c.bn), line(behind > 0 ? "The explorer is " + behind + " blocks behind the chain head." : "The explorer is at or ahead of the chain head.")];
+  }
+  tb.append(factRow("freshness", "Explorer freshness", fk, src("/api/v2/main-page/blocks"), when));
+}
+
+/* ---------- snapshots ---------- */
+const SNAP_FIELDS = [
+  ["codeHash", "Code hash", (f) => f.codeHash],
+  ["codeSize", "Code size", (f) => f.codeSize + " bytes"],
+  ["decimals", "Decimals", (f) => (f.decimals != null ? String(f.decimals) : "no answer")],
+  ["totalSupply", "Total supply (raw)", (f) => (f.totalSupply != null ? f.totalSupply.toString() : "no answer")],
+  ["owner", "Owner", (f) => (f.owner ? f.owner + " via " + (f.ownerSource === 1 ? "owner()" : "getOwner()") : "no answer")],
+];
+function cmpTable(head, rows) {
+  const t = node("table", { class: "cmp" }, node("thead", null, node("tr", null, head.map((h) => node("th", { text: h })))), node("tbody"));
+  rows.forEach((r) => t.querySelector("tbody").append(node("tr", null, node("th", { scope: "row", text: r[0] }), node("td", { text: r[1] }), node("td", { class: r[3] ? "differs" : "", text: r[2] }), node("td", { text: r[3] ? "differs" : "same" }))));
+  return t;
+}
+function nowReported(token) { return state.chain && !state.chain.noCode ? JSON.parse(reportedText(token, state.chain, state.explorer)) : null; }
+const REPORTED_FIELDS = [
+  ["name", "Name", (o) => o.name], ["symbol", "Symbol", (o) => o.symbol],
+  ["impl1967", "EIP-1967 implementation", (o) => o.proxy && o.proxy.impl1967], ["admin1967", "EIP-1967 admin", (o) => o.proxy && o.proxy.admin1967],
+  ["beacon", "EIP-1967 beacon", (o) => o.proxy && o.proxy.beacon], ["eip1822", "EIP-1822 slot", (o) => o.proxy && o.proxy.eip1822], ["eip1167", "EIP-1167 target", (o) => o.proxy && o.proxy.eip1167],
+  ["verified", "Verified source (explorer)", (o) => o.explorer && o.explorer.verified], ["holders", "Holder count (explorer)", (o) => o.explorer && o.explorer.holders],
+  ["top1", "Top holder share", (o) => o.explorer && o.explorer.top1Bps], ["top5", "Top 5 share", (o) => o.explorer && o.explorer.top5Bps], ["top10", "Top 10 share", (o) => o.explorer && o.explorer.top10Bps],
+  ["lookalikes", "Look-alike matches", (o) => o.explorer && o.explorer.lookalikes && o.explorer.lookalikes.length],
+];
+const show = (v, key) => (v == null ? "not given" : /^top\d+$/.test(key) ? pct(v) : String(v));
+
+async function renderSnapshotCard(token, s, nowFacts) {
+  const d = node("details", { class: "snap", "data-snapshot": String(s.id) });
+  d.append(node("summary", { text: "#" + s.id + " \u00b7 taken " + fmtTime(s.timestamp) + " \u00b7 block " + s.blockNumber + " \u00b7 by " + short(s.snapshotter) }));
+  const inner = node("div", { class: "inner" }); d.append(inner);
+  inner.append(node("h3", { text: "Read by the snapshot contract, then and now" }));
+  inner.append(node("p", { class: "small" }, "Taken by ", addrLink(s.snapshotter), ". The contract read these itself, so the taker couldn't have changed them."));
+  const rows = SNAP_FIELDS.map(([k, label, fmt]) => { const a = fmt(s.facts), b = nowFacts ? fmt(nowFacts) : "not available now"; return [label, a, b, nowFacts ? a !== b : false]; });
+  inner.append(cmpTable(["Field", "At snapshot", "Now", ""], rows));
+  const rep = node("div"); inner.append(rep);
+  rep.append(node("h3", { text: "Reported by the taker (not verified by the contract)" }), node("p", { class: "small", text: "Loading\u2026" }));
+  d.addEventListener("toggle", async () => {
+    if (!d.open || d.dataset.loaded) return; d.dataset.loaded = "1";
+    try {
+      const r = await data.getReported(s);
+      rep.innerHTML = ""; rep.append(node("h3", { text: "Reported by the taker (not verified by the contract)" }));
+      if (!r) { rep.append(node("p", { class: "small", text: "The record couldn't be found in the chain's event logs." })); return; }
+      rep.append(node("p", { class: "small", text: r.hashOk ? "This text matches the hash stored on-chain." : "This text does NOT match the hash stored on-chain, so it shouldn't be relied on." }));
+      let o = null; try { o = JSON.parse(r.text); } catch (e) {}
+      if (!o) { rep.append(node("p", { class: "mono small", text: r.text })); return; }
+      const cur = nowReported(token);
+      const rrows = REPORTED_FIELDS.map(([k, label, get]) => { const a = get(o), b = cur ? get(cur) : undefined; const nowTxt = cur ? show(b, k) : "not available now"; const thenTxt = show(a, k); return [label, thenTxt, nowTxt, cur ? thenTxt !== nowTxt : false]; });
+      rep.append(cmpTable(["Field", "At snapshot", "Now", ""], rrows));
+      if (Array.isArray(o.gaps) && o.gaps.length) rep.append(node("p", { class: "small", "data-gaps": "1", text: "Not included in this record (the taker couldn't get them): " + o.gaps.join("; ") }));
+    } catch (e) { rep.innerHTML = ""; rep.append(node("h3", { text: "Reported by the taker (not verified by the contract)" }), node("p", { class: "small", text: "Couldn't load this record: " + friendly(e) })); }
+  });
+  return d;
+}
+
+async function renderSnapshots(token, runId) {
+  const area = $("snapshotArea"); area.innerHTML = "";
+  if (!HAS_CONTRACT) { area.append(node("p", { class: "small", text: "The snapshot contract isn't set up yet, so snapshots are unavailable. Checking a token works without it." })); return; }
+  let nowFacts = null, list = null, err = null;
+  try { [nowFacts, list] = await Promise.all([data.previewFacts(token), data.listSnapshots(token)]); } catch (e) { err = e; }
+  if (runId !== state.runId) return;
+  if (err) { area.append(node("p", { class: "small", text: "Couldn't read snapshots: " + friendly(err) })); return; }
+  area.append(node("p", { class: "small", id: "wouldRecord" }, "A snapshot taken now would record: code " + short(nowFacts.codeHash) + " (" + nowFacts.codeSize + " bytes), decimals " + (nowFacts.decimals != null ? nowFacts.decimals : "no answer") + ", total supply " + (nowFacts.totalSupply != null ? nowFacts.totalSupply.toString() : "no answer") + ", owner " + (nowFacts.owner ? nowFacts.owner : "no answer") + ". It also records this page's explorer facts as a labelled, unverified report."));
+  const actions = node("div", { class: "actions" });
+  const btn = node("button", { id: "snapBtn", class: "primary", type: "button", text: "Take a snapshot" });
+  btn.addEventListener("click", () => takeSnapshot());
+  actions.append(btn, node("span", { id: "snapMsg", class: "small", role: "status", "aria-live": "polite" }));
+  area.append(actions);
+  if (!list.total) area.append(node("p", { class: "small", id: "noSnaps", text: "No snapshots of this token yet." }));
+  else {
+    area.append(node("p", { class: "small", text: list.total + " snapshot" + (list.total === 1 ? "" : "s") + " of this token" + (list.total > list.items.length ? " (showing the newest " + list.items.length + ")" : "") + ". Open one to compare it with the token's answers now." }));
+    for (const s of list.items) area.append(await renderSnapshotCard(token, s, nowFacts));
+  }
+}
+
+async function takeSnapshot() {
+  const token = state.token; if (!token || state.busy) return;
+  const msg = (t, kind) => { const el = $("snapMsg"); if (el) { el.textContent = t; el.className = "small" + (kind ? " " + kind : ""); } };
+  try {
+    if (!data.address()) { const a = await data.connect(); if (!a) return; await refresh(); }
+    if (!(await data.chainOk())) { setNotice("Your wallet is on a different network. Switch to " + net.chainName + " to take a snapshot.", ""); return; }
+    state.busy = true; $("snapBtn").disabled = true; msg("Confirm in your wallet, then wait a few seconds\u2026");
+    await data.takeSnapshot(token, reportedText(token, state.chain, state.explorer));
+    state.busy = false; setNotice("Snapshot recorded on-chain.", ""); await renderSnapshots(token, state.runId);
+    const m2 = $("snapMsg"); if (m2) m2.textContent = "Snapshot recorded.";
+  } catch (e) { state.busy = false; const b = $("snapBtn"); if (b) b.disabled = false; msg(friendly(e), "err"); }
+}
+
+/* ---------- the check ---------- */
+async function runCheck(raw) {
+  let token;
+  const input = String(raw || "").trim();
+  try { token = ethers.getAddress(input); } catch (e) { token = null; }
+  if (!token || !ADDR_RE.test(input)) { setNotice(ADDR_RE.test(input) ? "That address has a mixed-case checksum that doesn't match. Check it for typos." : "That doesn't look like a token address. It should start with 0x and have 40 more characters.", "err"); $("results").hidden = true; return; }
+  const runId = ++state.runId; state.token = token; state.chain = null; state.explorer = null;
+  setNotice("Reading from the chain\u2026", ""); $("results").hidden = true; $("checkBtn").disabled = true;
+  try { const u = new URL(location.href); u.searchParams.set("token", token); history.replaceState(null, "", u); } catch (e) {}
+  let c;
+  try { c = await data.chainFacts(token); }
+  catch (e) { if (runId !== state.runId) return; setNotice(state.address ? "Couldn't read from BOT Chain: " + friendly(e) : "Couldn't reach the BOT Chain RPC from your browser. Connect a wallet to read through it. (" + friendly(e) + ")", "err"); $("checkBtn").disabled = false; return; }
+  if (runId !== state.runId) return;
+  $("checkBtn").disabled = false;
+  if (c.noCode) { setNotice("There is no contract code at " + token + " as of block " + c.bn + ". It may be a wallet address, or the contract may not exist (or may no longer exist) on this network.", "err"); return; }
+  state.chain = c; setNotice("", "");
+  $("results").hidden = false;
+  $("asOf").textContent = "Token " + token + " \u00b7 chain facts are all from block " + c.bn + (c.ts ? " (" + fmtTime(c.ts) + ")" : "") + ".";
+  renderChainRows(c);
+  const body = $("explorerTable").querySelector("tbody"); body.innerHTML = ""; body.append(node("tr", null, node("td", { colspan: "4", class: "small", text: "Asking BOT Scan\u2026" })));
+  $("snapshotArea").innerHTML = "";
+  const ex = await data.explorerFacts(token, c);
+  if (runId !== state.runId) return;
+  state.explorer = ex; renderExplorerRows(ex, c);
+  await renderSnapshots(token, runId);
+}
+
+/* ---------- wiring ---------- */
+$("checkForm").addEventListener("submit", (e) => { e.preventDefault(); runCheck($("tokenInput").value); });
+$("connectBtn").addEventListener("click", async () => {
+  if (data.address()) { data.disconnect(); await refresh(); return; }
+  try { const a = await data.connect(); if (a) await refresh(); } catch (e) { setNotice(friendly(e), "err"); }
+});
+$("switchBtn").addEventListener("click", async () => { try { await data.switchNetwork(); await refresh(); } catch (e) { setNotice(friendly(e), "err"); } });
+if (data.subscribe) data.subscribe(() => refresh());
+async function refresh() {
+  state.address = data.address();
+  if (state.address) { try { state.chainOk = await data.chainOk(); } catch (e) { state.chainOk = false; } }
+  $("connectBtn").textContent = state.address ? short(state.address) : "Connect wallet";
+  $("connectBtn").classList.toggle("connected", !!state.address);
+  $("switchBtn").hidden = !(state.address && !state.chainOk);
+  if (state.address && !state.chainOk) setNotice("Your wallet is on a different network. Switch to " + net.chainName + " to continue.", "");
+  if (state.token && state.chain && $("results").hidden === false) await renderSnapshots(state.token, state.runId);
+}
+
+if (HAS_CONTRACT && !DEMO) { $("footContractLink").href = EXPLORER_BASE + "address/" + CONTRACT_ADDRESS; $("footContract").hidden = false; }
+if (DEMO) { $("demoBanner").hidden = false; document.title = "[Preview] " + document.title; }
+(async () => {
+  try { await data.autoReconnect(); } catch (e) {}
+  await refresh();
+  const t = new URLSearchParams(location.search).get("token");
+  if (t && ADDR_RE.test(t)) { $("tokenInput").value = t; runCheck(t); }
+})();
+})();
+</script>
+</body>
+</html>
